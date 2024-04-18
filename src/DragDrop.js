@@ -2,6 +2,8 @@
  */
 function DragDrop() {
   const body = document.querySelector("body");
+  const dock = document.createElement("div");
+  dock.classList.add("dock");
 
   const carrier = document.createElement("div");
   carrier.classList.add("ships");
@@ -28,11 +30,12 @@ function DragDrop() {
   destroyer.setAttribute("id", "destroyer");
   destroyer.setAttribute("draggable", "true");
 
-  body.appendChild(carrier);
-  body.appendChild(battleship);
-  body.appendChild(cruiser);
-  body.appendChild(submarine);
-  body.appendChild(destroyer);
+  dock.appendChild(carrier);
+  dock.appendChild(battleship);
+  dock.appendChild(cruiser);
+  dock.appendChild(submarine);
+  dock.appendChild(destroyer);
+  body.appendChild(dock);
 
   //const grid = document.querySelector(".board_one;");
 

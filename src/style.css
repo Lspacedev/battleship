@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     color: blue;
@@ -5,12 +6,13 @@ body {
 
 }
 
-.container {
+.boards{
     height: 100vh;
    
 
     display: flex;
     justify-content: space-around;
+    align-content: center;
 
     padding: 25px;
 
@@ -22,10 +24,11 @@ body {
     width: 500px;
 
     padding: 0;
-    border: 1px solid black;
+    border: 0.5px solid red;
     background-color: rgb(237, 237, 250);
     display: grid;
     grid-template-rows: repeat(10, 10%);
+    
 
 
 }
@@ -34,7 +37,7 @@ body {
     height: 500px;
     width: 500px;
     
-    border: 1px solid black;
+    border: 1px solid rgb(175, 112, 30);
     background-color: rgb(237, 237, 250);
     display: grid;
     grid-template-rows: repeat(10, 10%);
@@ -44,12 +47,16 @@ body {
 
     display: grid;
     grid-template-columns: repeat(10, 10%);
+    padding: 0;
+    margin: 0px;
 
 }
 
 .cols {
     border: 1px solid black;
-    text-align: center;
+   
+    padding: 0;
+    margin: 0px;
 
 
 }
@@ -71,47 +78,69 @@ body {
 
 #carrier{
     background-color: #4AAE9B;
-    font-weight: normal;
+  
     height: 50px;
     width: 250px;
-    display: grid;
-    grid-template-columns: repeat(5, 20%);
+    padding: 0;
+    
+    margin: 0 0;
+}
+
+#carrier, #battleship, #cruiser, #submarine, #destroyer > div{
+    background-color: blue;
+    padding: 5px;
 }
 
 
 
 #battleship {
     background-color: #54d419;
-    font-weight: normal;
+
     height: 50px;
     width: 200px;
-    display: grid;
-    grid-template-columns: repeat(4, 25%);
+    padding: 0;
+    margin: 0 0;
 }
+
 
 #cruiser {
     background-color: red;
-    font-weight: normal;
+  
     height: 50px;
     width: 150px;
-    display: grid;
-    grid-template-columns: repeat(3, 33.3333333333%);
+    padding: 0;
+    margin: 0 0;
 }
+
 
 #submarine {
     background-color: pink;
-    font-weight: normal;
+
     height: 50px;
     width: 150px;
-    display: grid;
-    grid-template-columns: repeat(3, 33.3333333333%);
+    padding: 0;
+    margin: 0 0;
 }
+
 
 #destroyer {
     background-color: orange;
-    font-weight: normal;
+ 
     height: 50px;
     width: 100px;
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
+    padding: 0;
+    margin: 0 0;
+}
+
+
+
+.dock {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+    
+}
+
+.status {
+    text-align: center;
 }

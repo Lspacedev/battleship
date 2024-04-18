@@ -4,6 +4,9 @@ function GameInterface(board1, board2) {
   const container = document.createElement("div");
   container.classList.add("container");
 
+  const boards = document.createElement("div");
+  boards.classList.add("boards");
+
   const status = document.createElement("div");
   status.classList.add("status");
   const board_one = document.createElement("div");
@@ -40,8 +43,9 @@ function GameInterface(board1, board2) {
     board_two.appendChild(row);
   }
   container.appendChild(status);
-  container.appendChild(board_one);
-  container.appendChild(board_two);
+  boards.appendChild(board_one);
+  boards.appendChild(board_two);
+  container.appendChild(boards);
 
   if (body.childNodes.length === 0) {
     body.appendChild(container);

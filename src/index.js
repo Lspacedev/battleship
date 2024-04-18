@@ -35,6 +35,7 @@ function Game() {
 
   function cellClick(e) {
     const cell = e.target;
+
     const coord = cell.getAttribute("data-cell-index");
 
     let playerMoveX = parseInt(coord[0]);
@@ -70,9 +71,11 @@ function Game() {
 
   function cellClick2(e) {
     const cell = e.target;
-
-    const coord = cell.getAttribute("data-cell-index");
+    //console.log(e);
     console.log(cell);
+    console.log(cell.className);
+    const coord = cell.getAttribute("data-cell-index");
+
     let computerMoveX = parseInt(coord[0]);
     let computerMoveY = parseInt(coord[2]);
     if (computerTurn) {
@@ -128,6 +131,7 @@ function Game() {
       .querySelectorAll(".cols_two")
       .forEach((cell) => cell.addEventListener("click", cellClick));
     document.querySelectorAll(".cols").forEach((cell) => {
+      console.log(cell);
       cell.addEventListener("click", cellClick2);
     });
   }
