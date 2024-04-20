@@ -7,8 +7,13 @@ function GameInterface(board1, board2) {
   const boards = document.createElement("div");
   boards.classList.add("boards");
 
+  const title = document.createElement("div");
+  title.classList.add("title");
+  title.textContent = "Battleship";
+
   const status = document.createElement("div");
   status.classList.add("status");
+
   const board_one = document.createElement("div");
   board_one.classList.add("board_one");
 
@@ -42,6 +47,8 @@ function GameInterface(board1, board2) {
     }
     board_two.appendChild(row);
   }
+
+  container.appendChild(title);
   container.appendChild(status);
   boards.appendChild(board_one);
   boards.appendChild(board_two);

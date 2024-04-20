@@ -14,27 +14,20 @@ function Player() {
 }
 
 function Game() {
-  let player = Player();
-  let computer = Player();
-
-  let computerMoveX = 1;
-  let computerMoveY = 2;
-
   let playerTurn = true;
   let computerTurn = false;
 
   // player + computer boards
 
-  const toggle = (stat) => {
-    if (stat === true) {
-      stat = false;
-    } else if (stat === false) {
-      stat = true;
-    }
-  };
-
   function cellClick(e) {
     const cell = e.target;
+    let bg = window.getComputedStyle(cell).getPropertyValue("background-color");
+
+    function check() {
+      if (bg) {
+        cell.removeEventListener("click", cellClick);
+      }
+    }
 
     const coord = cell.getAttribute("data-cell-index");
 
@@ -44,16 +37,20 @@ function Game() {
     if (playerTurn) {
       ComputerBoard.recieveAttack(playerMoveX, playerMoveY);
       let board = ComputerBoard.get_board();
-      cell.textContent = board[playerMoveX][playerMoveY];
-      console.log(cell);
-      console.log("clicked-p");
+      if (board[playerMoveX][playerMoveY] === "x") {
+        cell.style.backgroundColor = "#a8a8a8";
+      } else if (board[playerMoveX][playerMoveY] === "O") {
+        cell.style.backgroundColor = "#e2f5b8";
+      } else {
+        cell.textContent = board[playerMoveX][playerMoveY];
+      }
 
       //check sunk status
       if (
         PlayerBoard.get_sunkStatus() === 5 ||
         ComputerBoard.get_sunkStatus() === 5
       ) {
-        console.log("Game Over! You Win!");
+        status.textContent = "Game Over! You Win!";
         document
           .querySelectorAll(".cols_two")
           .forEach((cell) => cell.removeEventListener("click", cellClick));
@@ -65,35 +62,62 @@ function Game() {
     } else {
       return;
     }
-
+    check();
+    cellClick2();
     //playerTurn = false;
   }
 
-  function cellClick2(e) {
-    const cell = e.target;
-    //console.log(e);
-    console.log(cell);
-    console.log(cell.className);
-    const coord = cell.getAttribute("data-cell-index");
+  function isArrayInArray(arr1, arr2) {
+    var item = JSON.stringify(arr2);
 
-    let computerMoveX = parseInt(coord[0]);
-    let computerMoveY = parseInt(coord[2]);
+    var contains = arr1.some(function (ele) {
+      return JSON.stringify(ele) === item;
+    });
+    return contains;
+  }
+
+  function cellClick2() {
+    const cols = document.querySelectorAll(".cols");
+
+    let combinations = [];
+
+    let computerMoveX = Math.floor(Math.random() * 10);
+    let computerMoveY = Math.floor(Math.random() * 10);
+    if (isArrayInArray(combinations, [computerMoveX, computerMoveY])) {
+      computerMoveX = Math.floor(Math.random() * 10);
+      computerMoveY = Math.floor(Math.random() * 10);
+    } else {
+      combinations.push([computerMoveX, computerMoveY]);
+    }
+
+    let index = parseInt(String(computerMoveX) + String(computerMoveY));
+
+    let cell = cols[index];
+
     if (computerTurn) {
       PlayerBoard.recieveAttack(computerMoveX, computerMoveY);
       let board = PlayerBoard.get_board();
-      cell.textContent = board[computerMoveX][computerMoveY];
 
-      console.log(cell);
-      console.log(board);
-      //check sunk statuss
+      if (
+        board[computerMoveX][computerMoveY] === "x" &&
+        cell.style.backgroundColor !== "#a8a8a8" &&
+        cell.style.backgroundColor !== "#e2f5b8"
+      ) {
+        cell.style.backgroundColor = "#a8a8a8";
+      } else if (
+        board[computerMoveX][computerMoveY] === "O" &&
+        cell.style.backgroundColor !== "#e2f5b8" &&
+        cell.style.backgroundColor !== "#a8a8a8"
+      ) {
+        cell.style.backgroundColor = "#e2f5b8";
+      }
+
+      //check sunk status
       if (
         ComputerBoard.get_sunkStatus() === 5 ||
         PlayerBoard.get_sunkStatus() === 5
       ) {
-        console.log("Game Over! Computer Wins!");
-        document
-          .querySelectorAll(".cols")
-          .forEach((cell) => cell.removeEventListener("click", cellClick2));
+        status.textContent = "Game Over! Computer Wins!";
 
         return;
       } else {
@@ -116,24 +140,12 @@ function Game() {
   DragDrop();
   Drop(PlayerBoard);
 
-  //GameInterface(PlayerBoard.get_board(), board2);
-  //;
-
-  let gameOver = false;
-
-  console.log("==================");
-  console.log(PlayerBoard.get_board());
-
   const status = document.querySelector(".status");
 
   function start() {
     document
       .querySelectorAll(".cols_two")
       .forEach((cell) => cell.addEventListener("click", cellClick));
-    document.querySelectorAll(".cols").forEach((cell) => {
-      console.log(cell);
-      cell.addEventListener("click", cellClick2);
-    });
   }
 
   // round
@@ -141,5 +153,3 @@ function Game() {
 }
 
 Game();
-
-console.log("I'm working here");
